@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.employee.springboot.repository.*;
+import com.employee.springboot.utils.EmployeeUtils;
 import com.employee.springboot.entity.*;
 
 @RestController
@@ -33,6 +34,10 @@ public class EmployeeController {
     @PostMapping
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
         // Fetch the related objects based on their IDs
+    	
+    	Long id=EmployeeUtils.getHighestEmployeeId(employeeRepository.findAll());
+    	id++;
+    	employee.setEmployeeId(id);
         Department department = departmentRepository.findById(employee.getDepartment().getDepartmentId()).orElse(null);
         Jobs job = jobRepository.findById(employee.getJob().getJobId()).orElse(null);
         Location location = locationRepository.findById(employee.getLocation().getLocationId()).orElse(null);
