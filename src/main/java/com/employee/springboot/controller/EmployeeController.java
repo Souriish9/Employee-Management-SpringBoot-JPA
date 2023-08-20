@@ -78,9 +78,9 @@ public class EmployeeController {
     }
     
     @GetMapping("/{employeeId}")
-	public ResponseEntity<Employee> getEmployee(@PathVariable Long id){
+	public ResponseEntity<Employee> getEmployee(@PathVariable Long employeeId){
 		
-		Optional<Employee> emp=employeeRepository.findById(id);
+		Optional<Employee> emp=employeeRepository.findById(employeeId);
 		
 		if(emp.isPresent())
 		{
